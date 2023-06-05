@@ -1,4 +1,4 @@
-
+const userArgs = process.argv.slice(2);
 
 const Category = require("./models/category");
 const Item = require("./models/item");
@@ -6,21 +6,12 @@ const Item = require("./models/item");
 const categories = [];
 const items = [];
 
-
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false); // Prepare for Mongoose 7
 
-const mongoDB = "mongodb+srv://robertshah:robertshah@cluster0.1gpkvsk.mongodb.net";
-
-
-
-
-
+const mongoDB = userArgs[0];
 
 main().catch((err) => console.log(err));
-
-
-
 
 async function main() {
   console.log("Debug: About to connect");
@@ -28,7 +19,7 @@ async function main() {
   console.log("Debug: Should be connected?");
   await createCategories();
   await createItems();
-    console.log("Debug: Closing mongoose");
+  console.log("Debug: Closing mongoose");
   mongoose.connection.close();
 }
 
@@ -40,7 +31,6 @@ async function createCategories() {
     categoryCreate("French Poetry", "Books of French poetry genre"),
   ]);
 }
-
 
 async function createItems() {
   console.log("Adding items");
@@ -65,16 +55,12 @@ async function createItems() {
   ]);
 }
 
-
-
 async function categoryCreate(name, description) {
   const category = new Category({ name: name, description: description });
   await category.save();
   categories.push(category);
   console.log(`Added category: ${name}`);
 }
-
-
 
 async function itemCreate(name, description, category, price, numberInStock, url) {
   const item = new Item({
@@ -89,4 +75,3 @@ async function itemCreate(name, description, category, price, numberInStock, url
   items.push(item);
   console.log(`Added item: ${name}`);
 }
-
