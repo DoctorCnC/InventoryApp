@@ -1,0 +1,16 @@
+doctype html
+html(lang='en')
+  head
+    title= category.name
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    h1= category.name
+    p Description: #{category.description}
+    p URL: #{category.url}
+    h2 Items in this category:
+    ul
+      each item in items
+        li
+          a(href=item.myurl)= item.name
