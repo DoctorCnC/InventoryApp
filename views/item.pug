@@ -1,0 +1,15 @@
+doctype html
+html(lang='en')
+  head
+    title= item.name
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    h1= item.name
+    p Description: #{item.description}
+    p Category: 
+      a(href=category.myurl)= category.name
+    p Price: $#{item.price}
+    p Number in Stock: #{item.numberInStock}
+    p URL: #{item.url}

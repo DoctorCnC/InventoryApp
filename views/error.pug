@@ -1,6 +1,22 @@
-extends layout
+doctype html
+html(lang='en')
+  head
+    title= 'Error'
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    h1 Error
+    p #{message}
 
-block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+    h2 Categories
+    ul
+      each category in categories
+        li
+          a(href=category.myurl)= category.name
+
+    h2 Items
+    ul
+      each item in items
+        li
+          a(href=item.myurl)= item.name

@@ -54,8 +54,19 @@ const asyncHandler = require("express-async-handler");
 
 // Display site home page.
 exports.index = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Site Home Page");
+  // Get category count
+  const numCategories = await Category.countDocuments({}).exec();
+
+  // Retrieve category data
+  const categories = await Category.find({}).exec();
+
+  res.render("category/index", {
+    title: "All Categories",
+    category_count: numCategories,
+    categories: categories,
+  });
 });
+
 
 // Display list of all categories.
 exports.category_list = asyncHandler(async (req, res, next) => {
