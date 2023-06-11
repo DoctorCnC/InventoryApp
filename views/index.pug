@@ -1,35 +1,8 @@
-//- doctype html
-//- html(lang='en')
-//-   head
-//-     title= 'Inventory'
-//-     meta(charset='utf-8')
-//-     meta(name='viewport', content='width=device-width, initial-scale=1')
-//-     link(rel='stylesheet', href='/stylesheets/style.css')
-//-   body
-//-     h1 Categories
-//-     ul
-//-       each category in categories
-//-         li
-//-           a(href=category.myurl)= category.name
-
-//-     h1 Items
-//-     ul
-//-       each item in items
-//-         li
-//-           a(href=item.myurl)= item.name
-
 extends layout
 
 block content
   h1= title
-  p Welcome to #[em LocalLibrary], a very basic Express website developed as a tutorial example on the Mozilla Developer Network.
-
-  h1 Dynamic content
-
-  p The library has the following record counts:
-
+  p Category Count: #{category_count}
   ul
-    li #[strong Categories:] !{category_count}
     each category in categories
-      li #[strong #{category.name}:] #{category.count}
-    li #[strong Items:] !{item_count}
+      li= category.name

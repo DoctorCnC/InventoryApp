@@ -3,13 +3,43 @@ const asyncHandler = require("express-async-handler");
 
 // Display list of all items.
 exports.item_list = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: item list");
+  const allItems = await items.find({}, 'name category')
+    .sort({ name: 1 })
+    .populate('category')
+    .exec();
+
+  res.render('item_list', { title: 'Item List', item_list: allItems });
 });
 
-// Display detail page for a specific item.
+
 exports.item_detail = asyncHandler(async (req, res, next) => {
-  res.send(`NOT IMPLEMENTED: item detail: ${req.params.id}`);
+  // Get details of item and populate the category
+  const item = await items.findById(req.params.id)
+    .populate("category")
+    .exec();
+
+  if (item === null) {
+    // No results.
+    const err = new Error("Item not found");
+    err.status = 404;
+    return next(err);
+  }
+
+  res.render("item_detail", {
+    title: "Item Detail",
+    item: item,
+  });
 });
+
+
+
+
+
+
+
+
+
+
 
 // Display item create form on GET.
 exports.item_create_get = asyncHandler(async (req, res, next) => {

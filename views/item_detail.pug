@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1= title
+
+  // Display item details
+  h2 Item Details
+  p Name: #{item.name}
+  p Description: #{item.description}
+  p Category: #[a(href=item.category.myurl)= item.category.name]
+  p Price: $#{item.price}
+  p Number in Stock: #{item.numberInStock}
