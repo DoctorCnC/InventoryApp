@@ -14,6 +14,7 @@ const ItemSchema = new Schema({
 // Virtual for item's URL
 ItemSchema.virtual("myurl").get(function () {
   return  `/category/item/${this._id}`;
+
 });
 
 // Export model

@@ -38,20 +38,22 @@ router.get("/item/:id", itemController.item_detail);
 router.get("/items", itemController.item_list);
 
 
-
 router.get("/category/create", categoryController.category_create_get);
-
-// POST request for creating a category.
-router.post("/category/create", categoryController.category_create_post);
 
 // GET request to delete a category.
 router.get("/category/:id/delete", categoryController.category_delete_get);
 
-// POST request to delete a category.
-router.post("/category/:id/delete", categoryController.category_delete_post);
-
 // GET request to update a category.
 router.get("/category/:id/update", categoryController.category_update_get);
+
+
+
+
+// POST request for creating a category.
+router.post("/category/create", categoryController.category_create_post);
+
+// POST request to delete a category.
+router.post("/category/:id/delete", categoryController.category_delete_post);
 
 // POST request to update a category.
 router.post("/category/:id/update", categoryController.category_update_post);

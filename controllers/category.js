@@ -1,4 +1,5 @@
 const { body, validationResult } = require("express-validator");
+const items = require("../models/item");
 
 const Category = require("../models/category");
 const asyncHandler = require("express-async-handler");
@@ -18,9 +19,51 @@ exports.index = asyncHandler(async (req, res, next) => {
     categories: categories,
   });
 });
+console.log(
+  "Hi"
+)
+
+exports.category_list = async(req, res, next) => {
+  try {
+    const categories = await Category.find().exec();
+    res.render('category_list', { title: 'All Categories', categories });
+  } catch (err) {
+    next(err);
+  }
+};
+
+console.log(
+  "Hi"
+)
 
 
-// Handle category create on POST.
+exports.category_detail = async(req, res, next) => {
+  try {
+    const category = await Category.findById(req.params.id).exec();
+    if (!category) {
+      const err = new Error('Category not found');
+      err.status = 404;
+      throw err;
+    }
+    const items = await items.find({ category: category._id }).exec();
+    res.render('category_detail', { category, items });
+  } catch (err) {
+    next(err);
+  }
+};
+exports.category_create_get = asyncHandler(async (req, res, next) => {
+  res.render("category_form", {
+    title: "Create Category",
+    category: new Category(),
+  });
+});
+
+console.log(
+  "Hi"
+)
+
+
+
 exports.category_create_post = [
   // Validate and sanitize the name field.
   body("name", "Category name must contain at least 3 characters")
@@ -61,19 +104,23 @@ exports.category_create_post = [
 ];
 
 
+console.log(
+  "Hi"
+)
+
 
 
 
 // Display detail page for a specific category.
-exports.category_detail = asyncHandler(async (req, res, next) => {
-  res.send(`NOT IMPLEMENTED: category detail: ${req.params.id}`);
-});
+
 
 // Display category create form on GET.
 // Display Genre create form on GET.
-exports.genre_create_get = (req, res, next) => {
-  res.render("category_form", { title: "Create category" });
-};
+// exports.category_create_get = asyncHandler(async (req, res, next) => {
+//   res.render("category_form", { title: "Create Category" });
+// });
+
+
 
 
 // Handle category create on POST.

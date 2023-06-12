@@ -11,6 +11,7 @@ const CategorySchema = new Schema({
 // Virtual for category's URL
 CategorySchema.virtual("myurl").get(function () {
   return  `/category/${this._id}`;
+  
 });
 
 // Export model
